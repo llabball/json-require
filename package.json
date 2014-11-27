@@ -1,0 +1,19 @@
+{
+  "name": "json-require",
+  "version": "1.0.0",
+  "description": "Browser- and server-side require function. It acts on a JSON object like the nodejs require function on the file system.",
+  "main": "json-require.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/llabball/json-require"
+  },
+  "keywords": ["JSON","require","commonjs","module","loader"],
+  "author": "Ingo Radatz <thewhorn@googlemail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/llabball/json-require/issues"
+  }
+}
