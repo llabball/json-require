@@ -1,10 +1,10 @@
 ## Ampersand.js DEMO as CouchDB Couchapp
 
-This couchapp ([CouchDB design doc](http://docs.couchdb.org/en/latest/api/design.html)) is port of the [Ampersandjs](http://ampersandjs.com/) demo application that can be generated with the [Ampersand Cli tool](http://ampersandjs.com/docs/#ampersand-starting-a-new-app).
+This couchapp ([CouchDB design doc](http://docs.couchdb.org/en/latest/api/design.html)) is a port of the [Ampersandjs](http://ampersandjs.com/) demo application which can be generated with the [Ampersand Cli tool](http://ampersandjs.com/docs/#ampersand-starting-a-new-app).
 
-The main goal for the port was to show that an Ampersand.js-Project consisting of many commonjs-modules can be hosted at a CouchDB, loaded as JSON app and started in the Browser.
+The main goal of the port was to show that an Ampersand.js-Project consisting of many commonjs-modules can be hosted at a CouchDB, loaded as JSON and started in the Browser as webapp.
 
-Ampersand-Modules like state, model and view are recommended to initialise via a `extend(options)` function. The `options` are a JavaScript object. The router implementation show what potential other structure a Ampersand.js-Couchapp can have because its JSON in result. The most advantage is expected in source code management tasks because the Ampersand.js app will be splitted in more and smaller files.
+Ampersand-Modules like state, model and view are recommended to be initialised via a `extend(options)` function. The `options` is a JavaScript object. The router implementation shows how a Ampersand.js-Couchapp can be structured different because its JSON in result. One big advantage is expected in source code management tasks because the Ampersand.js app will be splitted in more and smaller files.
 
 The test are continuing ...
 
@@ -28,12 +28,24 @@ The demo app uses server API endpoints like `/api` or `/person`. To start the ap
 Because thats a huuuge URI you may want change that by using a vhost config in the local.ini.
 
 ```ini
-//subdomain with endpoint path
+// subdomain with endpoint path
 [vhosts]
 sub.domain.tld=[dbname]/_design/ampersand-couchapp/_rewrite
 ```
 
-**No matter the original path or a vhost is used** - the path must be included in the property `browser.urlRoot` of the `package.json`.
+**No matter the original path or a vhost is used - the path must be included in the property `browser.urlRoot` of the `package.json`.**
+
+```js
+// example package.json configuration
+{
+  ...,
+  "browser": {
+    "main": "client/app.js",
+    "urlRoot": "/ampersand-db/_design/ampersand-couchapp/_rewrite"
+  }.
+  ...
+}
+```
 
 
 ## get in touch
