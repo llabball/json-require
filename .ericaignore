@@ -1,0 +1,12 @@
+[
+  ".*test",
+  ".*LICENSE",
+  ".*LICENCE",
+  ".*README.md",
+  "^\..*",
+  "\/\..*",
+  ".*Makefile",
+  ".*CONTRIBUTING",
+  ".*Gruntfile",
+  ".*bower"
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "from": "css/:file",
+    "to": "css/:file"
+  },{
+    "from": "js/:file",
+    "to": "js/:file"
+  },{
+    "from": "api/people",
+    "to": "_view/people"
+  },{
+    "from": "person/add",
+    "to": "index.html"
+  },{
+    "from": "person/:id",
+    "to": "../../:id"
+  },{
+    "from": "person",
+    "to": "../../"
+  },{
+    "from": "",
+    "to": "index.html"
+  },{
+    "from": "/*",
+    "to": "index.html"
+  }
+]

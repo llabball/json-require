@@ -1,0 +1,7 @@
+[
+  "^\\..*",
+  ".*~$",
+  "test",
+  "^README",
+  "^LICENCE|LICENSE"
+]

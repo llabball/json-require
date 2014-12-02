@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="css/app.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <nav class="navbar navbar-default">
+      <div class="container-fluid">
+          <div class="navbar-header">
+              <a href="/index.html" class="navbar-brand">demo</a>
+          </div>
+          <ul class="nav navbar-nav">
+              <li>
+                  <a href="/index.html">home</a>
+              </li>
+              <li>
+                  <a href="/collections">collection demo</a>
+              </li>
+              <li>
+                  <a href="/info">more info</a>
+              </li>
+          </ul>
+      </div>
+  </nav>
+  <div class="container">
+      <main role="page-container">
+      </main>
+  </div>
+
+	<script src="js/loader.js" type="text/javascript"></script>
+  <script type="text/javascript" charset="utf-8">
+
+    $.couch.app(function(couchapp) {
+      var main = couchapp.ddoc.package.browser.main
+        , require = JSONRequire.makeRequire(couchapp.ddoc, true)
+
+      window.couchapp = couchapp
+
+      if (main && main.length > 0)
+      	require(main)
+      else
+      	console.error('couldnt find a starting point in ddoc.package.main')
+    })
+
+  </script>
+
+</body>
+</html>

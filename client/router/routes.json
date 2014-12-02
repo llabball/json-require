@@ -1,0 +1,8 @@
+{
+  "index.html": 		 "home",
+  "collections": 		 "collectionDemo",
+  "info": 					 "info",
+  "person/add": 		 "personAdd",
+  "person/:id": 		 "personView",
+  "person/:id/edit": "personEdit"
+}
