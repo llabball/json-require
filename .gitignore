@@ -1,4 +1,5 @@
 *.swp
 .DS_Store
+.couchapprc
 node_modules/
 npm-debug.log

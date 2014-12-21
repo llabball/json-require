@@ -10,10 +10,22 @@
     "type": "git",
     "url": "https://github.com/llabball/json-require"
   },
-  "keywords": ["JSON","require","commonjs","module","loader"],
-  "author": "Ingo Radatz <thewhorn@googlemail.com>",
+  "keywords": [
+    "JSON",
+    "require",
+    "commonjs",
+    "module",
+    "loader"
+  ],
+  "author": "Ingo Radatz <ingo.radatz@berlin.de>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/llabball/json-require/issues"
+  },
+  "scripts": {
+    "test": "export NODE_PATH=`pwd`; ./node_modules/.bin/mocha"
+  },
+  "devDependencies": {
+    "mocha": "^2.0.1"
   }
 }
