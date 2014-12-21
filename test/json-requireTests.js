@@ -1,10 +1,10 @@
 describe('#### testing the file json-require.js ####\n', function () {
 
-  var JSONRequire = require('../json-require')
-    , assert = require('assert')
-    , vm = require('vm')
-    , fs = require('fs')
-    , modules
+  var assert = require('assert')
+    , lib = require('../json-require')
+    //, vm = require('vm')
+    //, fs = require('fs')
+    , json_modules
 
   beforeEach(function() {
     //Example of a JSON object with function strings (modules)
@@ -22,82 +22,126 @@ describe('#### testing the file json-require.js ####\n', function () {
   })
 
 
-  describe('lib initialization', function () {
-    
-    describe('in an environment with a global "exports" object (commonjs, e.g. nodejs)', function () {
-      //lib init is taken from the test file head
-      it('should return an object', function () {
-        assert.equal(typeof JSONRequire, 'object')
-      })
-      testWithContext(JSONRequire)
+  describe('initialized lib', function () {
+    it('should have a "makeRequire" property', function (done) {
+      assert.ok(Object.keys(lib).indexOf('makeRequire') > -1)
+      done()
     })
-    
-    describe('in an environment without a global "exports" object (e.g. browser)', function () {
-      //lib initialization in a browser-like context
-      var browser_context = vm.createContext({window: {}})
-        , JSONRequire_string = fs.readFileSync(__dirname + '/../json-require.js')
-      vm.runInContext(JSONRequire_string, browser_context)
-
-      it('should bind a property "JSONRequire" to the global scope', function () {
-        assert.ok(Object.keys(browser_context).indexOf('JSONRequire') > -1)
-      })
-
-      testWithContext(browser_context.JSONRequire)
-    })
-
-  })//lib initialization
-
-
-  function testWithContext (lib) {
-    describe('initialized lib', function () {
-      it('should have a "makeRequire" property', function () {
-        assert.ok(Object.keys(lib).indexOf('makeRequire') > -1)
-      })
-    })
-    xit('should have only one property', function () {
+    xit('should have only one property', function (done) {
       var lib_methods = Object.keys(lib)
       assert.ok(lib_methods.length === 1, 'the makeRequire object should have only one property but has more: ' + lib_methods.join(', '))
-    })
-
-    describe('#makeRequire()', function () {
-      it('should exists as function (method)', function () {
-        assert.equal(typeof lib.makeRequire, 'function')
-      })
-      it('should return (the new require) a function', function () {
-        assert.equal(typeof lib.makeRequire(json_modules), 'function')
-      })
-    })
-  }//testWithContext
-
-
-  xdescribe('lib initialization in "test mode', function () {
-    it('should have a "_getCachedModule" property in an environment with a global "exports', function () {
-      assert.ok(Object.keys(JSONRequire).indexOf('makeRequire') > -1)
-    })
-    it('should have a "_setCachedModule" property in an environment with a global "exports', function () {
-      assert.ok(Object.keys(JSONRequire).indexOf('_getCachedModule') > -1)
-    })
-    it('should have a "_concatPaths" property in an environment with a global "exports', function () {
-      assert.ok(Object.keys(JSONRequire).indexOf('_concatPaths') > -1)
-    })
-    it('should have a "_traverseContextByPath" property in an environment with a global "exports"', function () {
-      assert.ok(Object.keys(JSONRequire).indexOf('_traverseContextByPath') > -1)
-    })
-    it('should have a "_removeFileExtension" property in an environment with a global "exports"', function () {
-      assert.ok(Object.keys(JSONRequire).indexOf('_removeFileExtension') > -1)
-    })
-    it('should have a "_resolvePath" property in an environment with a global "exports"', function () {
-      assert.ok(Object.keys(JSONRequire).indexOf('_resolvePath') > -1)
-    })
-    it('should have a "_validateConfiguration" property in an environment with a global "exports"', function () {
-      assert.ok(Object.keys(JSONRequire).indexOf('_validateConfiguration') > -1)
+      done()
     })
   })
 
-  
+  describe('#makeRequire()', function () {
+    it('should exists as function (method)', function () {
+      assert.equal(typeof lib.makeRequire, 'function')
+    })
+    it('should return (the new require) a function', function () {
+      assert.equal(typeof lib.makeRequire(json_modules), 'function')
+    })
+  })
 
-  
+  // describe('lib initialization', function () {
 
+  //   // The lib initializes as anonymous function:
+  //   // 
+  //   // (function (exports) {
+  //   //   ...
+  //   // })(typeof exports === 'undefined'? this['JSONRequire']={}: exports);
+  //   //
+  //   // To test that the results are the same no matter the environment the
+  //   // lib will be initialized in twice and the results should be 
+  //   // identically.
+  //   //
+  //   // All other test cases will asume that the tests will have the same
+  //   // results in the environments and NOT executed for every plattform
+
+  //   var lib_in_commonjs_env, lib_in_browser_env
+
+  //   before(function () {
+  //     lib_in_commonjs_env = require('../json-require')
+
+  //     var browser_context = vm.createContext({window: {}})
+  //       , JSONRequire_string = fs.readFileSync(__dirname + '/../json-require.js')
+
+  //     vm.runInContext(JSONRequire_string, browser_context)
+  //     lib_in_browser_env = browser_context.JSONRequire
+  //   })
+    
+  //   describe('in an environment with a global "exports" object (commonjs, e.g. nodejs)', function () {
+  //     it('should return an object', function () {
+  //       assert.equal(typeof lib_in_commonjs_env, 'object')
+  //     })
+  //     it('should provide a property "makeRequire" in the returned object', function () {
+  //       assert.ok(Object.keys(lib_in_commonjs_env).indexOf('makeRequire') > -1)
+  //     })
+  //   })
+    
+  //   describe('in an environment without a global "exports" object (e.g. browser)', function () {
+  //     it('should bind a property "JSONRequire" (object with a property "makeRequire") to the global scope', function () {
+  //       assert.ok(lib_in_browser_env !== undefined)
+  //     })
+  //     it('should provide a property "makeRequire" in the global "JSONRequire" property', function () {
+  //       assert.ok(Object.keys(lib_in_browser_env).indexOf('makeRequire') > -1)
+  //     })
+  //   })
+
+  //   describe('in an browser and commonjs environment', function () {
+  //     it('should result in the same library code', function () {
+  //       assert.deepEqual(JSON.stringify(lib_in_commonjs_env), JSON.stringify(lib_in_browser_env), 'results are not identically')
+  //     })
+  //   })
+
+  // })//lib initialization
+
+
+  // function testWithContext (lib) {
+  //   describe('initialized lib', function () {
+  //     it('should have a "makeRequire" property', function () {
+  //       assert.ok(Object.keys(lib).indexOf('makeRequire') > -1)
+  //     })
+  //   })
+  //   xit('should have only one property', function () {
+  //     var lib_methods = Object.keys(lib)
+  //     assert.ok(lib_methods.length === 1, 'the makeRequire object should have only one property but has more: ' + lib_methods.join(', '))
+  //   })
+
+  //   describe('#makeRequire()', function () {
+  //     it('should exists as function (method)', function () {
+  //       assert.equal(typeof lib.makeRequire, 'function')
+  //     })
+  //     it('should return (the new require) a function', function () {
+  //       assert.equal(typeof lib.makeRequire(json_modules), 'function')
+  //     })
+  //   })
+  // }//testWithContext
+
+
+  // xdescribe('lib initialization in "test mode', function () {
+  //   it('should have a "_getCachedModule" property in an environment with a global "exports', function () {
+  //     assert.ok(Object.keys(JSONRequire).indexOf('makeRequire') > -1)
+  //   })
+  //   it('should have a "_setCachedModule" property in an environment with a global "exports', function () {
+  //     assert.ok(Object.keys(JSONRequire).indexOf('_getCachedModule') > -1)
+  //   })
+  //   it('should have a "_concatPaths" property in an environment with a global "exports', function () {
+  //     assert.ok(Object.keys(JSONRequire).indexOf('_concatPaths') > -1)
+  //   })
+  //   it('should have a "_traverseContextByPath" property in an environment with a global "exports"', function () {
+  //     assert.ok(Object.keys(JSONRequire).indexOf('_traverseContextByPath') > -1)
+  //   })
+  //   it('should have a "_removeFileExtension" property in an environment with a global "exports"', function () {
+  //     assert.ok(Object.keys(JSONRequire).indexOf('_removeFileExtension') > -1)
+  //   })
+  //   it('should have a "_resolvePath" property in an environment with a global "exports"', function () {
+  //     assert.ok(Object.keys(JSONRequire).indexOf('_resolvePath') > -1)
+  //   })
+  //   it('should have a "_validateConfiguration" property in an environment with a global "exports"', function () {
+  //     assert.ok(Object.keys(JSONRequire).indexOf('_validateConfiguration') > -1)
+  //   })
+  // })
 
 
 });//global describe

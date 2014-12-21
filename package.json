@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Browser- and server-side require function. It acts on a JSON object like the nodejs require function on the file system.",
   "main": "json-require.js",
-  "scripts": {
-    "test": "node_modules/.bin/mocha"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/llabball/json-require"
@@ -24,6 +21,15 @@
   },
   "scripts": {
     "test": "export NODE_PATH=`pwd`; ./node_modules/.bin/mocha"
+  },
+  "testling": {
+    "harness": "mocha-bdd",
+    "files": "test/*.js",
+    "browsers": [
+      "ie/8..latest",
+      "chrome/latest",
+      "firefox/latest"
+    ]
   },
   "devDependencies": {
     "mocha": "^2.0.1"
