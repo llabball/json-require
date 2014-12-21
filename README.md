@@ -1,5 +1,4 @@
-# json-require [![Build Status](https://travis-ci.org/llabball/json-require.svg?branch=develop)](https://travis-ci.org/llabball/json-require) [![browser support](https://ci.testling.com/llabball/json-require.png)
-](https://ci.testling.com/llabball/json-require)
+# json-require [![Build Status](https://travis-ci.org/llabball/json-require.svg?branch=develop)](https://travis-ci.org/llabball/json-require) [![browser support](https://ci.testling.com/llabball/json-require.png)](https://ci.testling.com/llabball/json-require)
 
 Browser- and server-side require function. It acts on a JSON object like the nodejs require function on the file system.
 
