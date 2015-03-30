@@ -135,11 +135,15 @@
       return {error: 'unknown_context', reason: 'empty context object'}
   }
 
-  var makeRequire =function(ddoc, debug) {
+  var makeRequire =function(ddoc, rootpath, debug) {
     debug = debug || false
 
     var require = function(name, basepath) {
 
+      //in the inital recursive step the basepath is set to the modules folder
+      if (!basepath) basepath = rootpath
+
+      //TODO: the configuration error must be handled
       _validateConfiguration(ddoc, name, basepath)
 
       //try to resolve the modules path in doc

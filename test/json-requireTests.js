@@ -1,20 +1,24 @@
+if (this.window && this.window.document) {
+  var lib = JSONRequire
+    , assert = chai.assert
+} else {
+  var lib = require('../json-require')
+    , assert = require('assert')
+}
+
 describe('#### testing the file json-require.js ####\n', function () {
 
-  var assert = require('assert')
-    , lib = require('../json-require')
-    //, vm = require('vm')
-    //, fs = require('fs')
-    , json_modules
+  var json_modules
 
   beforeEach(function() {
     //Example of a JSON object with function strings (modules)
     json_modules = {
       modules: {
-        module1: "function () {exports.module1 = function() {return 'module1'}}",
+        module1: "module.exports = function module1 () {return 'module1'}",
         module2: {
-          index: "function () {exports.module2 = function() {return 'module2'}}",
+          index: "exports.module2 = function() {return 'module2'}",
           modules: {
-            module3: "function () {exports.module3 = function() {return 'module3'}}"
+            module3: "module.exports = function module3 () {return 'module3'}"
           }
         }
       }
@@ -35,11 +39,34 @@ describe('#### testing the file json-require.js ####\n', function () {
   })
 
   describe('#makeRequire()', function () {
-    it('should exists as function (method)', function () {
+    it('should exists as function (method)', function (done) {
       assert.equal(typeof lib.makeRequire, 'function')
+      done()
     })
-    it('should return (the new require) a function', function () {
+    it('should return (the new require) a function', function (done) {
       assert.equal(typeof lib.makeRequire(json_modules), 'function')
+      done()
+    })
+  })
+
+  describe('#require()', function () {
+    it('should load /rootpath/module', function (done) {
+      var jsonrequire = lib.makeRequire(json_modules, 'modules')
+      var module1 = jsonrequire('module1')
+      assert.equal(module1(), 'module1')
+      done()
+    })
+    it('should load /rootpath/path/to/module', function (done) {
+      var jsonrequire = lib.makeRequire(json_modules, 'modules')
+      var module3 = jsonrequire('module2/modules/module3')
+      assert.equal(module3(), 'module3')
+      done()
+    })
+    it('should load /rootpath/module/index', function (done) {
+      var jsonrequire = lib.makeRequire(json_modules, 'modules')
+      var module2 = jsonrequire('module2').module2
+      assert.equal(module2(), 'module2')
+      done()
     })
   })
 

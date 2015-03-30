@@ -21,18 +21,21 @@ will be published at npmjs.org soon ...
 // e.g. var module = require('path/to/module')
 var modules = {
 	modules: {
-		module1: function () {exports.fun = ...},
+		module1: "module.exports = function module1 () {...}",
 		module2: {
-			index: function () {exports.fun = ...},
+			index: "exports.module2 = function () {...}",
 			modules: {
-				module3: function () {exports.fun = ...}
+				module3: "..."
 			}
 	}
 }
 
 // initialize a require function
-// the second parameter is "debug" (into the console)
-var require = JSONRequire.makeRequire(modules, true);
+//
+// rootpath: string (rootpath will be prepend to all required modules) 
+// debug: true|false (into the console)
+//
+var require = JSONRequire.makeRequire(modules, rootpath, true);
 
 // require your module
 // when the required path points to a string it will be
