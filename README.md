@@ -1,5 +1,7 @@
 # json-require [![Build Status](https://travis-ci.org/llabball/json-require.svg?branch=develop)](https://travis-ci.org/llabball/json-require) [![Sauce Test Status](https://saucelabs.com/browser-matrix/llabball.svg)](https://saucelabs.com/u/llabball)
 
+[![Join the chat at https://gitter.im/llabball/json-require](https://badges.gitter.im/llabball/json-require.svg)](https://gitter.im/llabball/json-require?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Browser- and server-side require function. It acts on a JSON object like the nodejs require function on the file system.
 
 ## load in the Browser
